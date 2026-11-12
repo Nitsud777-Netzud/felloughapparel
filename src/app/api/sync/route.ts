@@ -9,6 +9,6 @@ export async function GET(request: Request) {
   if (!secret || authorization !== `Bearer ${secret}`) {
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   }
-  revalidateTag("whop-products", "max");
+  revalidateTag("whop-products");
   return NextResponse.json({ revalidated: true, at: new Date().toISOString() });
 }
