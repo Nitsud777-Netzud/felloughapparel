@@ -19,7 +19,7 @@ export default function AboutPage() {
       <div className="about-rule" />
       <div className="about-columns">
         <div><span className="section-label">03 / THE HUMOR</span><h2>DON’T TAKE<br />THE BRAND TOO<br /><i>SERIOUSLY.</i></h2></div>
-        <div><p>Take Christ seriously. Take the work seriously. Don't take yourself so seriously that you forget how to laugh.</p><p>Our humor is meant to come from a Christian perspective, never from mocking God, Jesus Christ, Scripture, or the faith itself.</p></div>
+        <div><p>Take Christ seriously. Take the work seriously. Don’t take yourself so seriously that you forget how to laugh.</p><p>Our humor is meant to come from a Christian perspective, never from mocking God, Jesus Christ, Scripture, or the faith itself.</p></div>
       </div>
     </section>
   );
