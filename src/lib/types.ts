@@ -11,6 +11,10 @@ export type WhopVariant = {
   billing_type?: string | null;
   initial_price?: WhopPrice | number | string | null;
   renewal_price?: WhopPrice | number | string | null;
+  currency?: string | null;
+  purchase_url?: string | null;
+  product?: { id?: string; title?: string } | null;
+  release_method?: string | null;
   unlimited_stock?: boolean | null;
   stock?: number | null;
 };
