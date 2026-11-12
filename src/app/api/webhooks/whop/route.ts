@@ -23,7 +23,8 @@ export async function POST(request: Request) {
   }
 
   const expectedAccount = process.env.WHOP_COMPANY_ID;
-  if (expectedAccount && event.account_id && event.account_id !== expectedAccount) {
+  const eventAccount = event.account_id ?? event.data?.account?.id;
+  if (expectedAccount && eventAccount && eventAccount !== expectedAccount) {
     return NextResponse.json({ error: "Unexpected Whop account." }, { status: 403 });
   }
 
