@@ -2,11 +2,12 @@ import Link from "next/link";
 import { getProducts } from "@/lib/products";
 import { isWhopConfigured } from "@/lib/whop";
 import { ProductCard } from "@/components/ProductCard";
+import type { Product } from "@/lib/types";
 
 export const revalidate = 300;
 
 export default async function HomePage() {
-  let products = [];
+  let products: Product[] = [];
   let catalogError = false;
   if (isWhopConfigured()) {
     try {
