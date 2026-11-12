@@ -58,7 +58,7 @@ export default async function HomePage() {
         {!isWhopConfigured() ? (
           <div className="catalog-state"><span className="state-mark">01</span><div><h3>THE SHOP IS GETTING SET UP.</h3><p>Our product catalog connects directly to Whop. Once the store connection is configured, only real, published products will appear here.</p></div></div>
         ) : catalogError ? (
-          <div className="catalog-state"><span className="state-mark">!</span><div><h3>THE CATALOG COULDN'T LOAD.</h3><p>We couldn’t verify the live Whop catalog. No sample products will be shown. Please check back shortly.</p></div></div>
+          <div className="catalog-state"><span className="state-mark">!</span><div><h3>THE CATALOG COULDN’T LOAD.</h3><p>We couldn’t verify the live Whop catalog. No sample products will be shown. Please check back shortly.</p></div></div>
         ) : products.length ? (
           <div className="product-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
         ) : (
