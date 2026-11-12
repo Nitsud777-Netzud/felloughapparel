@@ -21,6 +21,6 @@ export default async function ShopPage() {
       </section>
     );
   } catch {
-    return <section className="shop-page section-pad"><div className="section-label">THE FELLOUGH CATALOG</div><h1>THE<br /><i>SHOP.</i></h1><div className="catalog-state"><span className="state-mark">!</span><div><h3>CATALOG UNAVAILABLE.</h3><p>We couldn't verify the live Whop catalog. Try again later. No invented listings will be displayed.</p></div></div></section>;
+    return <section className="shop-page section-pad"><div className="section-label">THE FELLOUGH CATALOG</div><h1>THE<br /><i>SHOP.</i></h1><div className="catalog-state"><span className="state-mark">!</span><div><h3>CATALOG UNAVAILABLE.</h3><p>We couldn’t verify the live Whop catalog. Try again later. No invented listings will be displayed.</p></div></div></section>;
   }
 }
