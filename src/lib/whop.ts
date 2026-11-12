@@ -110,7 +110,7 @@ export function verifyWhopWebhook(rawBody: string, headers: Record<string, strin
 }
 
 export function getVariants(product: WhopProduct): WhopVariant[] {
-  const variants = product.variants?.filter((variant) => variant.visibility === "visible") ?? [];
+  const variants = product.variants?.filter((variant) => variant.visibility === "visible" && Boolean(variant.id)) ?? [];
   if (variants.length) return variants;
-  return product.default_variant?.visibility === "visible" ? [product.default_variant] : [];
+  return product.default_variant?.visibility === "visible" && product.default_variant.id ? [product.default_variant] : [];
 }
