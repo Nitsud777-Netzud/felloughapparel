@@ -38,6 +38,9 @@ Subscribe to:
 - `product.deleted`
 - `product.published`
 - `product.unpublished`
+- `plan.created`
+- `plan.updated`
+- `plan.deleted`
 
 Choose webhook API version `v1`, then copy its signing secret into `WHOP_WEBHOOK_SECRET`.
 
