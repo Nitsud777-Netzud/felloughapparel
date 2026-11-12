@@ -49,23 +49,25 @@ type ProductListResponse = {
   page_info?: { end_cursor?: string | null; has_next_page?: boolean };
 };
 
-export async function listWhopProducts(): Promise<WhopProduct[]> {
-  const { accountId } = credentials();
-  const all: WhopProduct[] = [];
+type PlanListResponse = {
+  data?: WhopVariant[];
+  page_info?: { end_cursor?: string | null; has_next_page?: boolean };
+};
+
+async function listWhopPlans(accountId: string): Promise<WhopVariant[]> {
+  const all: WhopVariant[] = [];
   let cursor: string | null = null;
   let page = 0;
 
   do {
-    const params = new URLSearchParams({
-      account_id: accountId,
-      first: "100",
-    });
+    const params = new URLSearchParams({ company_id: accountId, first: "100" });
     params.append("visibilities[]", "visible");
-    params.append("access_pass_types[]", "regular");
+    params.append("plan_types[]", "one_time");
+    params.append("release_methods[]", "buy_now");
     if (cursor) params.set("after", cursor);
 
-    const result = await whopRequest<ProductListResponse>(
-      `/products?${params.toString()}`,
+    const result = await whopRequest<PlanListResponse>(
+      `/plans?${params.toString()}`,
       undefined,
       { revalidate: 300, tags: ["whop-products"] },
     );
@@ -74,7 +76,52 @@ export async function listWhopProducts(): Promise<WhopProduct[]> {
     page += 1;
   } while (cursor && page < 10);
 
-  return all.filter((product) => product.visibility === "visible" && Boolean(product.id && product.title));
+  return all.filter((plan) => plan.visibility === "visible" && Boolean(plan.id && plan.product?.id));
+}
+
+export async function listWhopProducts(): Promise<WhopProduct[]> {
+  const { accountId } = credentials();
+  const [productPages, plans] = await Promise.all([
+    (async () => {
+      const all: WhopProduct[] = [];
+      let cursor: string | null = null;
+      let page = 0;
+
+      do {
+        const params = new URLSearchParams({ account_id: accountId, first: "100" });
+        params.append("visibilities[]", "visible");
+        params.append("access_pass_types[]", "regular");
+        if (cursor) params.set("after", cursor);
+
+        const result = await whopRequest<ProductListResponse>(
+          `/products?${params.toString()}`,
+          undefined,
+          { revalidate: 300, tags: ["whop-products"] },
+        );
+        all.push(...(result.data ?? []));
+        cursor = result.page_info?.has_next_page ? (result.page_info.end_cursor ?? null) : null;
+        page += 1;
+      } while (cursor && page < 10);
+      return all;
+    })(),
+    listWhopPlans(accountId),
+  ]);
+
+  const plansByProduct = new Map<string, WhopVariant[]>();
+  for (const plan of plans) {
+    const productId = plan.product?.id;
+    if (!productId) continue;
+    const existing = plansByProduct.get(productId) ?? [];
+    existing.push(plan);
+    plansByProduct.set(productId, existing);
+  }
+
+  return productPages
+    .filter((product) => product.visibility === "visible" && Boolean(product.id && product.title))
+    .map((product) => ({
+      ...product,
+      variants: plansByProduct.get(product.id) ?? product.variants ?? null,
+    }));
 }
 
 export async function createWhopCheckout(planId: string) {
