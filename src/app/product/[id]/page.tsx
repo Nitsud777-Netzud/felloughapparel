@@ -25,7 +25,7 @@ export default async function ProductPage({ params }: Props) {
   try {
     products = await getProducts();
   } catch {
-    return <section className="section-pad product-error"><h1>PRODUCT UNAVAILABLE.</h1><p>We couldn't verify this product with Whop right now. Please try again later.</p></section>;
+    return <section className="section-pad product-error"><h1>PRODUCT UNAVAILABLE.</h1><p>We couldn’t verify this product with Whop right now. Please try again later.</p></section>;
   }
 
   const product = products.find((item) => item.id === decodeURIComponent(id));
@@ -62,7 +62,7 @@ export default async function ProductPage({ params }: Props) {
         ) : product.planId ? (
           <BuyButton productId={product.id} planId={product.planId} />
         ) : (
-          <p className="availability-note">Checkout details aren't available for this product yet.</p>
+          <p className="availability-note">Checkout details aren’t available for this product yet.</p>
         )}
         <p className="checkout-note">Secure checkout is handled by Whop. Product details and availability come from the live Whop catalog.</p>
       </div>
