@@ -27,6 +27,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unexpected Whop account." }, { status: 403 });
   }
 
-  if (PRODUCT_EVENTS.has(event.type)) revalidateTag("whop-products", "max");
+  if (PRODUCT_EVENTS.has(event.type)) revalidateTag("whop-products");
   return NextResponse.json({ received: true, event: event.type });
 }
