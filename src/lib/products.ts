@@ -14,8 +14,8 @@ function productPrice(variants: WhopVariant[]): { price: number | null; currency
     .map((variant) => ({
       value: amountOf(variant.initial_price),
       currency: typeof variant.initial_price === "object" && variant.initial_price
-        ? variant.initial_price.currency ?? "usd"
-        : "usd",
+        ? variant.initial_price.currency ?? variant.currency ?? "usd"
+        : variant.currency ?? "usd",
     }))
     .filter((item): item is { value: number; currency: string } => item.value !== null);
 
