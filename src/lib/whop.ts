@@ -18,7 +18,11 @@ export function isWhopConfigured() {
   return Boolean(process.env.WHOP_COMPANY_API_KEY && process.env.WHOP_COMPANY_ID);
 }
 
-async function whopRequest<T>(path: string, init?: RequestInit): Promise<T> {
+async function whopRequest<T>(
+  path: string,
+  init?: RequestInit,
+  cacheOptions?: { revalidate: number; tags: string[] },
+): Promise<T> {
   const { token } = credentials();
   const response = await fetch(`${API_BASE}${path}`, {
     ...init,
@@ -28,7 +32,9 @@ async function whopRequest<T>(path: string, init?: RequestInit): Promise<T> {
       "Api-Version-Date": "2026-11-10-1",
       ...init?.headers,
     },
-    cache: "no-store",
+    ...(cacheOptions
+      ? { cache: "force-cache" as const, next: { revalidate: cacheOptions.revalidate, tags: cacheOptions.tags } }
+      : { cache: "no-store" as const }),
   });
 
   if (!response.ok) {
@@ -52,13 +58,17 @@ export async function listWhopProducts(): Promise<WhopProduct[]> {
   do {
     const params = new URLSearchParams({
       account_id: accountId,
-      visibilities: "visible",
-      access_pass_types: "regular",
       first: "100",
     });
+    params.append("visibilities[]", "visible");
+    params.append("access_pass_types[]", "regular");
     if (cursor) params.set("after", cursor);
 
-    const result = await whopRequest<ProductListResponse>(`/products?${params.toString()}`);
+    const result = await whopRequest<ProductListResponse>(
+      `/products?${params.toString()}`,
+      undefined,
+      { revalidate: 300, tags: ["whop-products"] },
+    );
     all.push(...(result.data ?? []));
     cursor = result.page_info?.has_next_page ? (result.page_info.end_cursor ?? null) : null;
     page += 1;
