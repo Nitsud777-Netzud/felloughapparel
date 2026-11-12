@@ -11,7 +11,7 @@ export function SiteFooter() {
         <div className="footer-links">
           <Link href="/shop">Shop</Link>
           <Link href="/about">Our standard</Link>
-          <a href="https://whop.com/" target="_blank" rel="noreferrer">Checkout powered by Whop ↗</a>
+          <span>Checkout securely powered by Whop</span>
         </div>
       </div>
       <div className="footer-bottom">
