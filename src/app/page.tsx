@@ -23,10 +23,10 @@ export default async function HomePage() {
         <div className="hero-grain" aria-hidden="true" />
         <div className="hero-kicker"><span className="dot" /> CHRISTIAN STREETWEAR / EST. IN FAITH</div>
         <div className="hero-content">
-          <p className="hero-pretitle">NOT HERE TO BE EVERYBODY'S CUP OF TEA.</p>
+          <p className="hero-pretitle">NOT HERE TO BE EVERYBODY’S CUP OF TEA.</p>
           <h1>FAITH.<br /><em>NO FILTER.</em></h1>
           <div className="hero-bottom">
-            <p>For the ones who know the truth<br />doesn't need a soft launch.</p>
+            <p>For the ones who know the truth<br />doesn’t need a soft launch.</p>
             <Link className="button button-light" href="/shop">SHOP THE DROP <span>↗</span></Link>
           </div>
         </div>
@@ -43,7 +43,7 @@ export default async function HomePage() {
         <div className="intro-copy">
           <h2>TAKE THE FAITH<br />SERIOUSLY.<br /><i>NOT YOURSELF.</i></h2>
           <div className="intro-aside">
-            <p>We're here for good laughs, good design, and a faith that doesn't fold when the room gets uncomfortable.</p>
+            <p>We’re here for good laughs, good design, and a faith that doesn’t fold when the room gets uncomfortable.</p>
             <p>Christian first. Funny on purpose. Never watered down.</p>
             <Link className="text-link" href="/about">WHAT WE STAND FOR ↗</Link>
           </div>
@@ -58,7 +58,7 @@ export default async function HomePage() {
         {!isWhopConfigured() ? (
           <div className="catalog-state"><span className="state-mark">01</span><div><h3>THE SHOP IS GETTING SET UP.</h3><p>Our product catalog connects directly to Whop. Once the store connection is configured, only real, published products will appear here.</p></div></div>
         ) : catalogError ? (
-          <div className="catalog-state"><span className="state-mark">!</span><div><h3>THE CATALOG COULDN'T LOAD.</h3><p>We couldn't verify the live Whop catalog. No sample products will be shown. Please check back shortly.</p></div></div>
+          <div className="catalog-state"><span className="state-mark">!</span><div><h3>THE CATALOG COULDN'T LOAD.</h3><p>We couldn’t verify the live Whop catalog. No sample products will be shown. Please check back shortly.</p></div></div>
         ) : products.length ? (
           <div className="product-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
         ) : (
@@ -78,7 +78,7 @@ export default async function HomePage() {
 
       <section className="closing-cta section-pad">
         <div className="section-label">STAY ROOTED.</div>
-        <h2>DON'T BE<br /><i>ASHAMED.</i></h2>
+        <h2>DON’T BE<br /><i>ASHAMED.</i></h2>
         <Link className="button button-dark" href="/shop">FIND YOUR PIECE <span>↗</span></Link>
         <p>ROMANS 1:16</p>
       </section>
