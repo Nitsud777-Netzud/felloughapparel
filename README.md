@@ -20,6 +20,7 @@ A Christian meme and streetwear storefront built with Next.js and hosted on Verc
 
 Required Whop API permissions:
 - `access_pass:basic:read`
+- `plan:basic:read`
 - `checkout_configuration:create`
 - `webhook_receive:products`
 
